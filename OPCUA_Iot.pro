@@ -2,7 +2,10 @@ QT += qml quick
 
 CONFIG += c++11
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    Controller.cpp \
+    Kommunikation/tty.cpp \
+    Uarm/uarm.cpp
 
 RESOURCES += qml.qrc
 
@@ -29,4 +32,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    controller.h
+    controller.h \
+    Controller.h \
+    Kommunikation/tty.h \
+    Uarm/uarm.h
