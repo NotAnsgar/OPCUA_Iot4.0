@@ -2,8 +2,11 @@
 
 Controller::Controller(QObject *parent) : QObject(parent)
 {
-     settingupTTY();
-     m_uarmLib = new Uarm();
+    settingupTTY();
+
+
+     //m_uarmLib->initUarm();
+
 }
 
 void Controller::registerMetaTypes()
@@ -28,6 +31,7 @@ void Controller::settingupTTY()
     connect(m_ttyUsb, SIGNAL(finished()), m_ttyUsb, SLOT(deleteLater()));
     connect(m_ttyUsbThread, SIGNAL(finished()), m_ttyUsbThread, SLOT(deleteLater()));
 
+
     //QObject::connect(m_ttyUsb,SIGNAL(makeErrorSignal(ERRORCODE, QString)),this,SLOT(HandleErrors(ERRORCODE, QString)),Qt::QueuedConnection);
     //Connect setPixmap Signal from Business Class to MainWindows signal
 
@@ -44,4 +48,28 @@ void Controller::settingupTTY()
 
 }
 
+void Controller::settingupUarm()
+{
+    m_uarmLibThread = new QThread;
+    m_uarmLib = new Uarm();
+    m_uarmLib->moveToThread(m_uarmLibThread);
+    connect(m_uarmLib, SIGNAL(finished()), m_uarmLibThread, SLOT(quit()));
+    connect(m_uarmLib, SIGNAL(finished()), m_uarmLib, SLOT(deleteLater()));
+    connect(m_uarmLibThread, SIGNAL(finished()), m_uarmLibThread, SLOT(deleteLater()));
 
+
+    //QObject::connect(m_ttyUsb,SIGNAL(makeErrorSignal(ERRORCODE, QString)),this,SLOT(HandleErrors(ERRORCODE, QString)),Qt::QueuedConnection);
+    //Connect setPixmap Signal from Business Class to MainWindows signal
+
+    //QObject::connect(m_ttyUsb,SIGNAL(responseNmea(QString)),this,SLOT(HandleNmea(QString)),Qt::QueuedConnection);
+    //Connect PixmapButton Signal from MainWindow to Business Class signal
+
+    /*QObject::connect(this,
+                 SIGNAL(readttyUSB()),
+                 m_ttyUsb,
+                 SLOT(TTYUSB_INIT()),
+                 Qt::QueuedConnection);*/
+
+    m_ttyUsbThread->start();
+
+}

@@ -25,6 +25,7 @@ private:
      TTYUSB* m_ttyUsb;
      QThread* m_ttyUsbThread;
      Uarm* m_uarmLib;
+     QThread* m_uarmLibThread;
 
 };
 

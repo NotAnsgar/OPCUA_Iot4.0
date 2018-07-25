@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QDebug>
 #include <QString>
+#include <Kommunikation/tty.h>
 
 #define MoveCmdS  ((const char *)"G")
 
@@ -72,14 +73,14 @@ public:
     QString MoveServo(uint8_t ID,uint16_t Angle);
     QString relativeDisplacement();
     QString stopMotor(uint16_t X,uint16_t Y,uint16_t Z);
-
+    void initUarm();
     void sendCmd(QString Fullcmd);
 signals:
-
+    void TTYUSB_WRITE(QString);
 public slots:
 
 private:
-    void initUarm();
+
     quint32 m_CmdNr;
 };
 

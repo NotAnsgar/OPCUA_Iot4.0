@@ -22,6 +22,7 @@ TTYUSB::TTYUSB()
   m_Device_Path = "/dev/";
   m_USB = 0;
   m_devicepath = "empty";
+  TTYUSB_INIT();
 }
 
 void TTYUSB::TTYUSB_THREAD()

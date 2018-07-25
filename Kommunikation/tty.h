@@ -26,6 +26,8 @@ public :
     virtual ~TTYUSB();
 public slots:
     void TTYUSB_WRITE(QString message);
+
+
 protected slots:
     ///
     /// \brief TTYUSB_READ
@@ -52,7 +54,6 @@ Q_SIGNALS:
     /// \param err
     ///
     void error(QString err);
- protected:
 
 private:
     ///
